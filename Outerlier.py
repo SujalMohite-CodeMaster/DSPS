@@ -15,13 +15,14 @@ def outerliers(df,col_name):
     Q3 = df[col_name].quantile(0.75)
 
     IQR = Q3 -Q1
-    print(IQR)
-
-    lower_outerlier = Q1 - 1.5 *IQR
-    upper_outerlier = Q3 + 1.5 *IQR
+    
+ #outerliers are the values which is below the lower_outlier and values above the upper_outerlier
+    lower_outerlier = Q1 - 1.5 *IQR # to find lower outerlier
+    upper_outerlier = Q3 + 1.5 *IQR # to find upper outerlier
 
     outerlier = df[(df[col_name] < lower_outerlier) | (df[col_name] > upper_outerlier)]
-    return outerlier , IQR
+    return outerlier 
 
 outerlier_in_marks = outerliers(df,"Marks")
-print(f"The outerlier in marks is\n{outerlier_in_marks}")
+print(f"The outerlier in marks is\n{outerlier_in_marks}") 
+ # Here is the only value "96" are the above upper_outerlier and none of the value is below the lower_outerlier.
