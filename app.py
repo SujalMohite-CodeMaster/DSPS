@@ -1,24 +1,26 @@
 import pandas as pd
-import numpy as np
+import matplotlib.pyplot as plt
+import seaborn as sns
 
-dataset = {
-     "Marks" : [87,86,87,87,96,94,88,88,90]
-}
+# Generate a dataset using Pandas
+df = pd.DataFrame({"values": pd.Series([*pd.Series(range(1000)).sample(500, replace=True)])})
 
-print(dataset)
+# Create the plot
+plt.figure(figsize=(10, 5))
 
-df = pd.DataFrame(dataset)
+# Matplotlib Histogram
+plt.hist(df["values"], bins=30, density=True, alpha=0.6, color='b', edgecolor='black', label="Matplotlib")
 
-print(df)
+# Seaborn Histogram
+sns.histplot(df["values"], bins=30, stat="density", kde=True, color='r', label="Seaborn", alpha=0.6)
 
-Q1 = df["Marks"].quantile(0.25)
-Q3 = df["Marks"].quantile(0.75)
-IOR = Q3 - Q1
+# Labels and title
+plt.xlabel("Value")
+plt.ylabel("Density")
+plt.title("Normalized Histogram using Pandas, Matplotlib & Seaborn")
 
-lower_outerlier = Q1 - 1.5 * IOR
-upper_outerlier = Q3 + 1.5 * IOR
+# Legend
+plt.legend()
 
-print(lower_outerlier,upper_outerlier)
-
-print(f"Q1 is {Q1} and Q2 is {Q3}")
-print("IOR is ",IOR)
+# Show plot
+plt.show()
